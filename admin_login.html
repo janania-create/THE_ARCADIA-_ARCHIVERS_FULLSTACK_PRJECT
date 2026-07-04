@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - The Arcadia Archives</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            padding: 20px;
+        }
+        .login-box {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 420px;
+        }
+        .login-box h1 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            color: #c9a84c;
+            margin-bottom: 5px;
+        }
+        .login-box p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #c9a84c;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #c9a84c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            background: #8b7355;
+            transform: translateY(-2px);
+        }
+        .error {
+            color: #dc3545;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+        .error.show {
+            display: block;
+        }
+        .hint {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 3px solid #c9a84c;
+        }
+        .hint p {
+            margin: 5px 0;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: left;
+        }
+        .hint strong {
+            color: #1a1a1a;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #c9a84c;
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            color: #8b7355;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1>👑 The Arcadia Archives</h1>
+        <p>Administrator Access</p>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Username" value="admin" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" value="admin123" required>
+            </div>
+            <button type="submit" id="loginBtn">Login</button>
+            <div id="errorMessage" class="error"></div>
+        </form>
+        
+        <div class="hint">
+            <p><strong>🔑 Demo Credentials:</strong></p>
+            <p>Username: <strong>admin</strong></p>
+            <p>Password: <strong>admin123</strong></p>
+        </div>
+        
+        <div class="back-link">
+            <a href="/">← Back to Store</a>
+        </div>
+    </div>
+    
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const errorDiv = document.getElementById('errorMessage');
+        const loginBtn = document.getElementById('loginBtn');
+        
+        errorDiv.classList.remove('show');
+        errorDiv.textContent = '';
+        loginBtn.textContent = 'Logging in...';
+        loginBtn.disabled = true;
+        
+        try {
+            const response = await fetch('/api/admin/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok && data.success) {
+                window.location.href = '/admin_dashboard';
+            } else {
+                errorDiv.textContent = data.error || 'Login failed. Please try again.';
+                errorDiv.classList.add('show');
+            }
+        } catch (error) {
+            errorDiv.textContent = 'Connection error. Please check your network.';
+            errorDiv.classList.add('show');
+        } finally {
+            loginBtn.textContent = 'Login';
+            loginBtn.disabled = false;
+        }
+    });
+    </script>
+</body>
+</html>

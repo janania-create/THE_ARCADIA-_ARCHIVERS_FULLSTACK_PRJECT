@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}The Arcadia Archives - Luxury at its Finest{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">The Arcadia Archives</h1>
+            <p class="hero-subtitle">Where luxury meets legacy. Curated collections for the discerning connoisseur.</p>
+            <a href="{{ url_for('shop') }}" class="btn-primary">Explore Collection</a>
+        </div>
+    </div>
+</section>
+
+<section class="featured-section">
+    <div class="container">
+        <h2 class="section-title">Featured Pieces</h2>
+        <div class="product-grid" id="featuredProducts">
+            <!-- Products loaded by JavaScript -->
+        </div>
+    </div>
+</section>
+
+<section class="brand-story">
+    <div class="container">
+        <div class="story-content">
+            <h2>Our Heritage</h2>
+            <p>Since 1926, The Arcadia Archives has been the epitome of luxury craftsmanship. Each piece tells a story of tradition, innovation, and timeless elegance.</p>
+            <a href="{{ url_for('about') }}" class="btn-outline">Discover Our Story</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

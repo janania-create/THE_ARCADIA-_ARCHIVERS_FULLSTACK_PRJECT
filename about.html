@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}About - The Arcadia Archives{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>About The Arcadia Archives</h1>
+        <p>Preserving elegance since 1926</p>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-story">
+                <h2>Our Legacy</h2>
+                <p>Founded in 1926, The Arcadia Archives has been a beacon of luxury and craftsmanship for nearly a century. What began as a small atelier in the heart of Florence has grown into a globally recognized name in premium accessories.</p>
+                <p>Each piece in our collection is a testament to our commitment to quality, tradition, and timeless design. We source the finest materials from around the world and work with master artisans who have dedicated their lives to their craft.</p>
+                <div class="milestones">
+                    <div class="milestone">
+                        <h3>1926</h3>
+                        <p>Founded in Florence, Italy</p>
+                    </div>
+                    <div class="milestone">
+                        <h3>1950</h3>
+                        <p>Expanded to Paris and London</p>
+                    </div>
+                    <div class="milestone">
+                        <h3>2026</h3>
+                        <p>Celebrating 100 years of excellence</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='images/about-heritage.jpg') }}" alt="Arcadia Heritage" />
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
